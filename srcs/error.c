@@ -36,4 +36,6 @@ void	process_error( int type )
 		print_error("cub3d: error: invalid extension", print_usage);
 	if (type == INVALID_FILE)
 		print_error("cub3d: error: invalid file", NULL);
+	if (type == INVALID_TEXTURE)
+		print_error("cub3d: error: invalid texture", NULL);
 }

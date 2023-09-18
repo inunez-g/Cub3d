@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sperez-p <sperez-p@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: inunez-g <inunez-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/17 12:22:43 by sperez-p          #+#    #+#             */
-/*   Updated: 2023/09/18 01:09:10 by sperez-p         ###   ########.fr       */
+/*   Created: 2023/09/18 11:35:57 by inunez-g          #+#    #+#             */
+/*   Updated: 2023/09/18 11:35:57 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@ int	main(int argc, char **argv)
 
 	if (argc == 2)
 	{
-		get_map(argv[1], &map_utils);
+		if (!get_map(argv[1], &map_utils))
+		{
+			//seguimos programa
+			printf("Bien");
+			return(0);
+		}
+		else
+		{
+			printf("Mal");
+			return (-1);
+		}
 	}
 }
