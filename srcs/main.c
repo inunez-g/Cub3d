@@ -15,7 +15,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_map	map_utils;
+	t_vars	map_utils;
 
 	if (argc == 2)
 	{

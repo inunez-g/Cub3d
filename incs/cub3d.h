@@ -21,34 +21,36 @@
 
 # include <stdio.h>
 # include "colors.h"
+# include "../libft/libft.h"
 
 /* STRUCTURES */
-typedef struct	s_str
-{
-	char			c;
-	struct s_str	*next;
-	struct s_str	*prev;
-}	t_str;
 
 typedef struct	s_map
 {
-	t_str	*str;
-	t_str	*tmp;
-	char	c;
+	char	**map;
 	int		fd;
-	char	*tmp_map;
+	int		pos_x;
+	int		pos_y;
+	int		lines;
+	//char	*tmp_map;
 }	t_map;
 
 typedef struct	s_textures
 {
-	char	*no;
-	char	*so;
-	char	*ea;
-	char	*we;
-	char	*c;
-	char	*f;
+	char*	no;
+	char*	so;
+	char*	ea;
+	char*	we;
+	char*	c;
+	char*	f;
 	int		filled;
 }	t_textures;
+
+typedef struct s_vars {
+	t_map		my_map;
+	t_list		*lst_map;
+	t_textures	my_textures;
+}	t_vars;
 
 /* CHECK FUNCTIONS */
 int ft_isspace(int c);
@@ -59,14 +61,18 @@ void	process_error( int type );
 /* FREE FUNCTIONS */
 
 /* GET MAP FUNCTIONS */
-int	get_map( char *file, t_map *map_utils );//Era void pero asi pinta bien
+int	get_map( char *file, t_vars *map_utils );//Era void pero asi pinta bien
 
 /* STRING FUNCTIONS */
 size_t	ft_strlen( const char *str );
 char	*ft_strrchr( const char *str , int c );
 int		ft_strcmp( const char *str1, const char *str2 );
+char	*ft_strstr(const char *haystack, const char *needle);
 
 /* HELPFUL FUNCTIONS */
 void	pass_spaces(char *str, int *i);
+void	super_printf(char **str); //cambiar de sitio
+
+void    init_textures(t_vars	*vars);
 
 #endif

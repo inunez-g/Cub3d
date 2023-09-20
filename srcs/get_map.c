@@ -31,6 +31,7 @@ static int	count_values( char *str )
 			i++;
 		if (!ft_isspace(str[i]) && str[i])
 		{
+			printf("ascii %d\n", str[i]);
 			len++;
 			while (!ft_isspace(str[i]) && str[i])
 				i++;
@@ -56,15 +57,16 @@ static char	*splitdup(const char *s, size_t start, size_t finish)
 
 char	**fill_textures( char *str, char **dst )
 {
+	printf("FILL TEXTURES\n");
 	int	len;
 	int	i;
 	int start;
-	char	textures[][3] = {"NO", "SO", "WE", "EA"};
 	int	j;
 
 	i = 0;
 	len = 0;
 	j = 0;
+	printf("str[i] = %s\n", str);
 	while (str[i])
 	{
 		while (ft_isspace(str[i]) && str[i])
@@ -73,10 +75,13 @@ char	**fill_textures( char *str, char **dst )
 		while (!ft_isspace(str[i]) && str[i])
 			i++;
 		dst[j] = splitdup(str, start, i);
-		if (ft_strcmp(dst, TEXTURES))
+		printf("dst[j] = <%s>\n", dst[j]);
+		if (ft_strstr(dst[0], TEXTURES))
 			process_error(INVALID_TEXTURE);
-     
+		j++;
 	}
+	dst[j] = NULL;
+	return (dst);
 }
 
 char	**split_textures( char *str )
@@ -85,13 +90,19 @@ char	**split_textures( char *str )
 	char	**dst;
 
 	len = count_values(str);
+	printf("len = %d\n", len);
+	printf("str = %s\n", str);
 	if (!str || len > 2)
 		return (NULL);
-	dst = (char **)malloc(sizeof(char *) * len + 1);
+	dst = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!dst)
+	{
+			printf("len = %d\n", len);
 		return (NULL);
-	
-
+	}
+	printf("len = %d\n", len);
+	dst = fill_textures(str, dst);
+	return (dst);
 }
 
 
@@ -114,12 +125,112 @@ void	check_extension( char *file, char *extension )
 		process_error(INVALID_EXTENSION);
 }
 
+void	super_printf(char **str)
+{
+	int	i;
 
-int	get_map( char *file, t_map *map_utils )// void o int -> Si returnea 0 todo perf. Si returnea -1/1 o lo que sea error y en el main se termina el programa
+	i = 0;
+	if (!str)
+		return ;
+	while (str[i] != NULL)
+	{
+		printf("[%s]\n", str[i]);
+		i++;
+	}
+}
+
+void	lst_to_array(t_vars *vars)
+{
+	t_list	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = vars->lst_map;
+	vars->my_map.map = (char **)malloc(sizeof(char *)
+			* (vars->my_map.lines + 1));
+	if (!vars->my_map.map)
+		return ;
+	while (i < vars->my_map.lines)
+	{
+		vars->my_map.map[i] = ft_strdup((char *)tmp->content);
+		tmp = tmp->next;
+		i++;
+	}
+	vars->my_map.map[vars->my_map.lines] = NULL;
+	super_printf(vars->my_map.map);
+	printf("%s\n", vars->my_map.map[3]);
+	//is_map_correct(vars, i);
+}
+
+void	read_map(t_vars	*vars)
+{
+	char	*line;
+	int len;
+	int i;
+	
+	vars->my_map.lines = 0;
+	while (1)
+	{
+		line = NULL;
+		line = get_next_line(vars->my_map.fd);
+		if (line != NULL && ft_strlen(line) > 0)
+		{
+			if (ft_strlen(line) == 1 && line[0] == '\n')
+				continue;
+			else
+			{
+				len = ft_strlen(line) - 1;
+				//if (len != vars->my_map.cols && vars->my_map.cols != 0)
+					//mapa_invalido();
+				//vars->my_map.cols = len;
+				ft_lstadd_back(&vars->lst_map, ft_lstnew(ft_strdup(line)));
+				free(line);
+				vars->my_map.lines +=1;
+				//vars->my_map.rows += 1;
+			}
+		}
+		else
+			break ;
+	}
+	close(vars->my_map.fd);
+	lst_to_array(vars);
+	i = 0;
+	char **dest;
+	while (vars->my_map.map[i])
+	{
+		dest = split_textures(vars->my_map.map[i]);
+		if (!dest)
+			process_error(INVALID_EXTENSION);
+		
+	}
+
+	printf("hbdsjhjfhsbj\n");
+	super_printf(dest);
+}
+
+void	give_value( char **dest, t_vars *vars )
+{
+	if (ft_strcmp(dest[0], "NO"))
+		vars->my_textures.no = ft_strdup(dest[1]);
+	else if (ft_strcmp(dest[0], "SO"))
+		vars->my_textures.so = ft_strdup(dest[1]);
+	else if (ft_strcmp(dest[0], "EA"))
+		vars->my_textures.ea = ft_strdup(dest[1]);
+	else if (ft_strcmp(dest[0], "WE"))
+		vars->my_textures.we = ft_strdup(dest[1]);
+	else if (ft_strcmp(dest[0], "F"))
+		vars->my_textures.f = ft_strdup(dest[1]);
+	else if (ft_strcmp(dest[0], "C"))
+		vars->my_textures.c = ft_strdup(dest[1]);
+}
+
+
+
+int	get_map( char *file, t_vars *map_utils )// void o int -> Si returnea 0 todo perf. Si returnea -1/1 o lo que sea error y en el main se termina el programa
 {
 	check_extension(file, ".cub");
-	map_utils->fd = open(file, O_RDONLY);
-	if (map_utils->fd == -1)
+	map_utils->my_map.fd = open(file, O_RDONLY);
+	if (map_utils->my_map.fd == -1)
 	{
 		process_error(INVALID_FILE);
 		printf("Mal");
@@ -127,29 +238,14 @@ int	get_map( char *file, t_map *map_utils )// void o int -> Si returnea 0 todo p
 	}
 	else
 	{
-
+		init_textures(map_utils);
+		read_map(map_utils);
 	}
 	printf("Bien");
 	return (0);
 }
 
-void	read_map(fd)
-{
-	char	*line;
-	int i;
-	
-	while (1)
-	{
-		line = NULL;
-		line = get_next_line(fd);
-		if (line != NULL && ft_strlen(line) > 0)
-		{
-			pass_spaces
-		}
-	}
-}
-
-void	bordes_validos(t_vars *vars, int i)
+/*void	bordes_validos(t_vars *vars, int i)
 {
 	int	j;
 
@@ -170,4 +266,4 @@ void	bordes_validos(t_vars *vars, int i)
 		else
 			mapa_invalido();
 	}
-}
+}*/

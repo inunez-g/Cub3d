@@ -4,6 +4,8 @@ SRC =   srcs/main.c\
 		srcs/get_map.c\
 		srcs/error.c\
 		srcs/string.c\
+		srcs/check.c\
+		srcs/init.c\
 
 CC =	gcc
 
@@ -13,7 +15,7 @@ CFLAGS =	-Werror -Wextra -Wall #-g3 -fsanitize=address
 
 MAKE = make
 
-#LIB2 =	libft/libft.a
+LIB2 =	libft/libft.a
 
 INCLUDES = incs/cub3d.h
 

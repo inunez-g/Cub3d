@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "incs/cub3d.h"
 
 int ft_isspace(int c)
 {
@@ -45,7 +46,9 @@ char	**split_textures( char *str )
 
 }
 
-int main( void )
+int main(int argc, char **argv)
 {
-    split_textures("        NO                                      textura             hgewdhgdafwhg asgfhjadgfjh \n");
+    //split_textures("        NO                                      textura             hgewdhgdafwhg asgfhjadgfjh \n");
+	
+
 }

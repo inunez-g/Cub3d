@@ -38,4 +38,5 @@ void	process_error( int type )
 		print_error("cub3d: error: invalid file", NULL);
 	if (type == INVALID_TEXTURE)
 		print_error("cub3d: error: invalid texture", NULL);
+	exit(1);
 }
