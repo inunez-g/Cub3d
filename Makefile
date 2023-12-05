@@ -77,7 +77,7 @@ $(OBJS): $M$O%.o : $M$S%.c
 
 $(NAME): $(OBJS)
 	@echo "Compiling mandatory...."
-	$(MAKE) -C mlx/ 2>log.txt
+	$(MAKE) -C mlx/
 	$(CC) $(CFLAGS) -lmlx -Lmlx -framework OpenGL -framework AppKit $^ -o $(NAME)
 	@echo "Mandatory compiled"
 

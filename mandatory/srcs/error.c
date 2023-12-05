@@ -6,7 +6,7 @@
 /*   By: sperez-p <sperez-p@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 11:07:54 by inunez-g          #+#    #+#             */
-/*   Updated: 2023/12/05 12:31:06 by sperez-p         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:09:17 by sperez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ void	process_error( int type, t_game *game )
 		print_error("cub3d: error: invalid color", NULL);
 	aux_error(type);
 	general_free(game);
-	system("leaks cub3d");
 	exit(1);
 }

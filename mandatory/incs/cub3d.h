@@ -6,7 +6,7 @@
 /*   By: sperez-p <sperez-p@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 14:10:57 by sperez-p          #+#    #+#             */
-/*   Updated: 2023/12/05 12:15:42 by sperez-p         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:48:48 by sperez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ void			check_content( int i, int j, t_game *game );
 /* CHECK MAP FUNCTIONS */
 int				check_complete_map( char *file_content );
 void			check_map( t_game *game );
-void			check_extension( char *file, char *extension, t_game *game, char **texture );
+void			check_extension( char *file, char *extension, t_game *game, \
+char **texture );
 
 /* CHECK FUNCTIONS */
 int				ft_isspace( int c );

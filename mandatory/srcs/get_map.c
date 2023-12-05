@@ -6,7 +6,7 @@
 /*   By: sperez-p <sperez-p@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 11:07:45 by inunez-g          #+#    #+#             */
-/*   Updated: 2023/12/05 12:15:05 by sperez-p         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:51:09 by sperez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	get_map( char *file, t_game *game )
 	if (!check_complete_map(file_content))
 	{
 		free(file_content);
-		process_error(NL_MAP_ERROR, game);		
+		process_error(NL_MAP_ERROR, game);
 	}
 	game->content = ft_split(file_content, '\n');
 	if (file_content)

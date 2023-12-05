@@ -21,7 +21,6 @@ static int	end_game(t_game *game)
 	mlx_clear_window(game->mlx_data->mlx, game->mlx_data->window);
 	mlx_destroy_window(game->mlx_data->mlx, game->mlx_data->window);
 	general_free(game);
-	system("leaks cub3d");
 	exit(0);
 }
 

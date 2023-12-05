@@ -6,7 +6,7 @@
 /*   By: sperez-p <sperez-p@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 13:07:28 by sperez-p          #+#    #+#             */
-/*   Updated: 2023/12/05 12:16:33 by sperez-p         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:50:50 by sperez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ int	check_complete_map( char *file_content )
 	return (1);
 }
 
-
-
 /*
  * This function compares the file's extension to the expected extension
  * and process an error if they do not match.
@@ -53,7 +51,8 @@ int	check_complete_map( char *file_content )
  *     extension: the expectedd file extension
  *     vars: a pointer to a t_var structure representing program state.
  */
-void	check_extension( char *file, char *extension, t_game *game, char **texture )
+void	check_extension( char *file, char *extension, t_game *game, \
+char **texture )
 {
 	char	*file_extension;
 
@@ -61,14 +60,14 @@ void	check_extension( char *file, char *extension, t_game *game, char **texture 
 	{
 		if (texture)
 			free_2dstr(texture);
-		process_error(INVALID_EXTENSION, game);		
+		process_error(INVALID_EXTENSION, game);
 	}
 	file_extension = ft_strrchr(file, '.');
 	if (ft_strcmp(extension, file_extension))
 	{
 		if (texture)
 			free_2dstr(texture);
-		process_error(INVALID_EXTENSION, game);		
+		process_error(INVALID_EXTENSION, game);
 	}
 }
 
